@@ -232,7 +232,7 @@ void player::update()
 	if (_isGround)
 	{
 		_gravity = 0;
-		if (_direction == LEFT_JUMP_DESCENT)	_direction = LEFT_JUMP_LANDING;
+		if (_direction == LEFT_JUMP_DESCENT) _direction = LEFT_JUMP_LANDING;
 		if (_direction == RIGHT_JUMP_DESCENT) _direction = RIGHT_JUMP_LANDING;
 	}
 	else
@@ -450,6 +450,7 @@ void player::render()
 		controlX = 315;
 		controlY = 160;
 		_mikotoAttack->frameRender(getMemDC(), _player.left - 107, _player.top, _mikotoAttack->getFrameX(), _mikotoAttack->getFrameY());
+		//Rectangle(getMemDC(), _player); //공격 렉트
 	}
 	//레일건 스킬
 	if (_direction == LEFT_RAILGUN || _direction == RIGHT_RAILGUN)
@@ -457,6 +458,7 @@ void player::render()
 		controlX = 300;
 		controlY = 250;
 		_mikotoRailgun->frameRender(getMemDC(), _player.left - 100, _player.top-45, _mikotoRailgun->getFrameX(), _mikotoRailgun->getFrameY());
+		//Rectangle(getMemDC(), _railgun); //레일건 공격 렉트
 	}
 	//기절
 	if (_direction == LEFT_FALLDOWN || _direction == RIGHT_FALLDOWN)
@@ -507,7 +509,7 @@ void player::collisionBoss()
 		if (IntersectRect(&temp, &_player, &_boss->getBlackWaveRect()))
 		{
 			_playerHP -= _boss->getATK();
-			_hpfX -= _boss->getATK() / 5;
+			_hpfX -= _boss->getATK();
 			if (_hpfX <= 0)
 			{
 				_playerHP = 0;
@@ -525,7 +527,7 @@ void player::collisionBoss()
 		if (_isAttack && IntersectRect(&temp, &_player, &_boss->getRect()))
 		{
 			_playerHP -= _ATK / 2;
-			_hpfX -= _ATK / 5;
+			_hpfX -= _ATK / 2;
 			if (_hpfX <= 0)
 			{
 				_playerHP = 0;
@@ -538,7 +540,7 @@ void player::collisionBoss()
 		if (_isRailgun && IntersectRect(&temp, &_railgun, &_boss->getRect()))
 		{
 			_playerHP -= _railgunATK / 2;
-			_hpfX -= _railgunATK / 5;
+			_hpfX -= _railgunATK / 2;
 			if (_hpfX <= 0)
 			{
 				_playerHP = 0;
